@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TikTok API Testing</title>
+</head>
+<body>
+    <h1>TikTok API Testing</h1>
+
+    <p id="result">Waiting for TikTok authorization...</p>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const code = params.get("code");
+        const state = params.get("state");
+        const error = params.get("error");
+        const errorDescription = params.get("error_description");
+
+        if (error) {
+            document.getElementById("result").innerText =
+                "Error: " + error + " - " + errorDescription;
+        } else if (code) {
+            document.getElementById("result").innerHTML =
+                "<h2>Authorization successful</h2>" +
+                "<p><b>Code:</b></p>" +
+                "<textarea style='width:100%;height:150px;'>" +
+                code +
+                "</textarea>" +
+                "<p><b>State:</b> " + state + "</p>";
+        } else {
+            document.getElementById("result").innerText =
+                "No authorization code received.";
+        }
+    </script>
+</body>
+</html>
